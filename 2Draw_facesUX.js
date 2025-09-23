@@ -31,8 +31,20 @@ function drawInteraction(faces, hands) {
     */
     checkIfMouthOpen(face);
     if (isMouthOpen) {
-      text("blah blah", face.keypoints[287].x, face.keypoints[287].y)
+       fill(225);
+      ellipse(leftEyeCenterX, leftEyeCenterY, leftEyeWidth, leftEyeHeight);
     }
+
+//      checkIfMouthOpen(face);
+//     if (isMouthOpen) {
+//           fill(225);
+//       ellipse(leftEyeCenterX, leftEyeCenterY, leftEyeWidth, leftEyeHeight);
+//     }
+// else {
+//    fill(150);
+//       ellipse(leftEyeCenterX, leftEyeCenterY, leftEyeWidth, leftEyeHeight);
+//   }
+
 
     /*
     Stop drawing on the face here

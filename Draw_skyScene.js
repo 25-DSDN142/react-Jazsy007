@@ -25,9 +25,9 @@ function drawInteraction(faces, hands) {
     let faceHeight = face.faceOval.height;
 
 
-    sunWidth = faceWidth * 1.5;
+    sunWidth = faceWidth * 1.5; /// how big the sun is 
     sunHeight = faceHeight * 1.5;
-    sunX = faceCenterX - sunWidth / 2;
+    sunX = faceCenterX - sunWidth / 2; //where the sun is and center it on face 
     sunY = faceCenterY - sunHeight / 2;
 
 
@@ -36,12 +36,12 @@ function drawInteraction(faces, hands) {
 
     // draw sun face
     fill(255);
-    ellipse(face.leftEye.centerX, face.leftEye.centerY, 20, 20);
+    ellipse(face.leftEye.centerX, face.leftEye.centerY, 20, 20); // draw eyes 
     ellipse(face.rightEye.centerX, face.rightEye.centerY, 20, 20);
     fill(0);
     ellipse(face.leftEye.centerX, face.leftEye.centerY, 8, 8);
     ellipse(face.rightEye.centerX, face.rightEye.centerY, 8, 8);
-    drawPoints(face.lips, "#ff0000", 10);
+    // drawPoints(face.lips, "#ff0000", 10); // draw face points 
   }
   // hands part
   // for loop to capture if there is more than one hand on the screen. This applies the same process to all hands.
@@ -51,7 +51,7 @@ function drawInteraction(faces, hands) {
     // console.log(hand);
     let indexFingerTipX = hand.index_finger_tip.x;
     let indexFingerTipY = hand.index_finger_tip.y;
-    let topLeftX = indexFingerTipX - planeImage.width / 2;
+    let topLeftX = indexFingerTipX - planeImage.width / 2; // plane on top of finger centered 
     let topLeftY = indexFingerTipY - planeImage.height / 2;
 
     image(planeImage, topLeftX, topLeftY)
