@@ -1,14 +1,13 @@
 // ----=  HANDS  =----
 let halo;
-let rightHorn;
-let leftHorn;
+let BlueH;
+let RedH;
 
-let angel = true;
+let blue = true;
 
 function prepareInteraction() {
-  halo = loadImage('/images/Gemini_halo.png');
-  rightHorn = loadImage('/images/Gemini_horn1.png');
-  leftHorn = loadImage('/images/Gemini_horn2.png');
+  BlueH = loadImage('/images/Blueheart.png');
+  RedH = loadImage('/images/Redheart.png');
 }
 
 function drawInteraction(faces, hands) {
@@ -30,11 +29,11 @@ function drawInteraction(faces, hands) {
     */
 
     let whatGesture = detectHandGesture(hand)
-    if (whatGesture == "Thumbs Up") {
-      angel = true;
+    if (whatGesture == "Peace") {
+      blue = true;
     }
-    if (whatGesture == "Open Palm") {
-      angel = false;
+    if (whatGesture == "Thumbs Up") {
+      blue = false;
     }
 
     /*
@@ -64,25 +63,18 @@ function drawInteraction(faces, hands) {
     /*
     Start drawing on the face here
     */
+    let leftEyeCenterX = face.leftEye.centerX;
+    let leftEyeCenterY = face.leftEye.centerY;
 
-    let faceWidth = face.faceOval.width;
-    let faceheight = face.faceOval.height;
-    let faceCenterX = face.faceOval.centerX;
-    let faceCenterY = face.faceOval.centerY;
+    let rightEyeCenterX = face.rightEye.centerX;
+    let rightEyeCenterY = face.rightEye.centerY;
 
-
-    let hornWidth = faceWidth / 3;
-    let hornHeight = faceheight;
-
-    let hornXOffset = faceWidth * 0.6;
-    let hornYOffset = faceheight * 1.5;
-
-    if (angel) {
-      image(halo, face.keypoints[103].x, face.keypoints[103].y - 200)
+    if (blue) {
+      image(BlueH, rightEyeCenterX - 50, rightEyeCenterY -50, 80, 100) // Shows blue heart
+      image(BlueH, leftEyeCenterX -50, leftEyeCenterY -50, 80, 100) // Shows blue heart
     } else {
-      image(rightHorn, faceCenterX - hornXOffset, faceCenterY - hornYOffset, hornWidth, hornHeight) // imageName, x, y, imageWidth, imageHight
-      image(leftHorn, faceCenterX + hornXOffset - leftHorn.width, faceCenterY - hornYOffset, hornWidth, hornHeight) // imageName, x, y, imageWidth, imageHight
-
+      image(RedH, rightEyeCenterX -50, rightEyeCenterY -50, 80, 100) // Shows red heart
+      image(RedH, leftEyeCenterX -50, leftEyeCenterY -50, 80, 100) // Shows red heart
     }
     /*
     Stop drawing on the face here
