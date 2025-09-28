@@ -1,13 +1,14 @@
 // ----=  HANDS  =----
 /* load images here */
 function prepareInteraction() {
-  //bgImage = loadImage('/images/background.png');
+  Moon = loadImage('/images/Moon.png');
+  Star = loadImage('/images/Star.png');
 }
 
 function drawInteraction(faces, hands) {
   // hands part
   // for loop to capture if there is more than one hand on the screen. This applies the same process to all hands.
-  for (let i = 0; i < hands.length; i++) {
+ for (let i = 0; i < hands.length; i++) {
     let hand = hands[i];
     //console.log(hand);
     if (showKeypoints) {
@@ -18,34 +19,27 @@ function drawInteraction(faces, hands) {
     let indexFingerTipX = hand.index_finger_tip.x;
     let indexFingerTipY = hand.index_finger_tip.y;
 
-     let pinkyFingerTipX = hand.pinky_finger_tip.x;
-     let pinkyFingerTipY = hand.pinky_finger_tip.y;
-
-     let middleFingerTipX = hand.middle_finger_tip.x;
-     let middleFingerTipY = hand.middle_finger_tip.y;
-
     /*
     Start drawing on the hands here
     */
 
-    // fill(225, 225, 0);
-    // ellipse(indexFingerTipX, indexFingerTipY, 30, 30);
+if (hand.handedness === "Right") {
+ image(Moon, indexFingerTipX - 30, indexFingerTipY - 60, 140, 160) // Moon tracked to right finger
+}
 
-    //  fill(20, 200, 255);
-    //   ellipse(pinkyFingerTipX, pinkyFingerTipY, 30, 30);
-
-        fill(200, 255, 25);
-      ellipse(middleFingerTipX, middleFingerTipY, 30, 30);
+ if (hand.handedness === "Left") {
+  image(Star, indexFingerTipX - 60, indexFingerTipY -60, 140, 160) // Star tracked to left finger 
+ }
 
       
-    //drawPoints(hand)
+  //   //drawPoints(hand)
 
-    fingerPuppet(indexFingerTipX, indexFingerTipY);
+  //   fingerPuppet(indexFingerTipX, indexFingerTipY);
 
-    fingerPuppet(pinkyFingerTipX, pinkyFingerTipY);
+  //   fingerPuppet(pinkyFingerTipX, pinkyFingerTipY);
 
-  strokeWeight(5)
-    line(indexFingerTipX, indexFingerTipY, pinkyFingerTipX,pinkyFingerTipY)
+  // strokeWeight(5)
+  //   line(indexFingerTipX, indexFingerTipY, pinkyFingerTipX,pinkyFingerTipY)
 
     // chameleonHandPuppet(hand)
 
