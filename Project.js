@@ -3,6 +3,7 @@ function prepareInteraction() {
 
   Fish = loadImage('/images/Fish1.png');
   Jellyfish = loadImage('/images/Jellyfish.png');
+  Stingray = loadImage('/images/Stingray.png');
   Shark1 = loadImage('/images/Shark1.png');
   Shark2 = loadImage('/images/Shark2.png');
   Ocean = loadImage('/images/Background.jpg');
@@ -86,35 +87,29 @@ drawingContext.shadowColor = color(9, 25, 145); // navy colour
 
 drawingContext.shadowBlur = 20; // minimal glow 
 drawingContext.shadowColor = color(9, 25, 145); // navy colour 
+let whatGesture = detectHandGesture(hand)
 
  if (hand.handedness === "Right") {
  let topLeftX = indexFingerTipX - 200 / 2; // fish on top of finger centered 
  let topLeftY = indexFingerTipY - 240 / 2;
   image(Fish, topLeftX, topLeftY, 200, 240)
   }
-   
- if (hand.handedness === "Left") {
+
+if (whatGesture === "Pointing" && hand.handedness === "Left") {
  let topLeftX = indexFingerTipX - 200 / 2; // jellyfish on top of finger centered 
  let topLeftY = indexFingerTipY - 240 / 2;
   image(Jellyfish, topLeftX, topLeftY, 200, 240)
   }
    
+ if (whatGesture === "Thumbs Up" && hand.handedness === "Left") {
+ let topLeftX = indexFingerTipX - 200 / 2; // fish on top of finger centered 
+ let topLeftY = indexFingerTipY - 240 / 2;
+ image(Stingray, topLeftX, topLeftY, 200, 240) /// add stingray 
 
-//  let whatGesture = detectHandGesture(hand)
-
-//   if (whatGesture == "Peace") {
+ //   if (whatGesture == "Peace" && hand.handedness === "Left") {
 //     // add bubbles 
 //     }
-
-//  if (whatGesture == "Thumbs Up") {
-
-// if (hand.handedness === "Left ") {
-
-//  let topLeftX = indexFingerTipX - 200 / 2; // fish on top of finger centered 
-//  let topLeftY = indexFingerTipY - 240 / 2;
-//   image(Fish, topLeftX, topLeftY, 200, 240) /// add stingray 
-//   }
-//     }
+    }
   } 
 //----- 
 }
