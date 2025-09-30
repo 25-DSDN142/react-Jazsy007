@@ -11,16 +11,21 @@ function prepareInteraction() {
 }
 
 let face;
+let x = [], y = [], speed = [], size = [];
+let NumBubbles = 100;
+let initialized = false;
 
 function drawInteraction(faces, hands) {
 
 // imageMode(CENTER) // can use push and pop 
-
 // imageMode(CORNER)
+
 
  // draw background first
  image(Ocean, 0, 0, 1280, 960); // make sure is right size 
-//-----------------------------------------
+
+
+// //-----------------------------------------
 
   //facePart
   // for loop to capture if there is more than one face on the screen. This applies the same process to all faces. 
@@ -102,20 +107,40 @@ if (whatGesture === "Pointing" && hand.handedness === "Left") {
   }
    
  if (whatGesture === "Thumbs Up" && hand.handedness === "Left") {
- let topLeftX = indexFingerTipX - 200 / 2; // fish on top of finger centered 
+ let topLeftX = indexFingerTipX - 200 / 2; // stingray on top of finger centered 
  let topLeftY = indexFingerTipY - 240 / 2;
  image(Stingray, topLeftX, topLeftY, 200, 240) /// add stingray 
+ }
 
- //   if (whatGesture == "Peace" && hand.handedness === "Left") {
-//     // add bubbles 
-//     }
+ if (whatGesture == "Peace" && hand.handedness === "Right") {
+   
+  if (!initialized) {
+    for (let i = 0; i < NumBubbles; i++) {
+      x[i] = random(width);                
+      y[i] = random(height, height + 100);
+      speed[i] = random(0.3, 1.2);// upward speed
+      size[i] = random(5, 19);  // bubble size
     }
+    initialized = true;
+  }
+
+  for (let i = 0; i < NumBubbles; i++) {
+    y[i] -= speed[i]; // move up
+
+ drawingContext.shadowBlur = 16;
+ drawingContext.shadowColor = color(180, 220, 255, 150); // light blue 
+
+  noStroke();
+    fill(200, 230, 255, 150); // light blue 
+    ellipse(x[i], y[i], size[i]);
+
+  }
+   }
+
   } 
 //----- 
 }
   // You can make addtional elements here, but keep the hand drawing inside the for loop. 
-
-
 
 
 
@@ -133,9 +158,6 @@ function checkIfMouthOpen(face) {
   } else {
     isMouthOpen = true;
   }
-
-
-
 
 
 
