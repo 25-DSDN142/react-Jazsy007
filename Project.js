@@ -2,28 +2,23 @@
 function prepareInteraction() {
 
   Fish = loadImage('/images/Fish1.png');
+  Fish2 = loadImage('/images/Fish2.png');
   Jellyfish = loadImage('/images/Jellyfish.png');
   Stingray = loadImage('/images/Stingray.png');
   Shark1 = loadImage('/images/Shark1.png');
   Shark2 = loadImage('/images/Shark2.png');
+  Shark3 = loadImage('/images/Shark3.png');
   Ocean = loadImage('/images/Background.jpg');
-
 }
 
-let face;
 let x = [], y = [], speed = [], size = [];
 let NumBubbles = 100;
 let initialized = false;
 
 function drawInteraction(faces, hands) {
 
-// imageMode(CENTER) // can use push and pop 
-// imageMode(CORNER)
-
-
  // draw background first
  image(Ocean, 0, 0, 1280, 960); // make sure is right size 
-
 
 // //-----------------------------------------
 
@@ -32,14 +27,18 @@ function drawInteraction(faces, hands) {
   for (let i = 0; i < faces.length; i++) {
     let face = faces[i]; // face holds all the keypoints of the face
 
+    faceCenterX = face.faceOval.centerX;
+    faceCenterY = face.faceOval.centerY;
+     faceWidth = face.faceOval.width;
+    faceHeight = face.faceOval.height;
+
+  SharkMouthX = face.keypoints[447].x;
+  SharkMouthY = face.keypoints[447].y;
+
+
     /*
     Start drawing on the face here
     */
-
-    let faceCenterX = face.faceOval.centerX;
-    let faceCenterY = face.faceOval.centerY;
-    let faceWidth = face.faceOval.width;
-    let faceHeight = face.faceOval.height;
 
 drawingContext.shadowBlur = 20; // minimal glow 
 drawingContext.shadowColor = color(9, 25, 145); // navy colour 
@@ -83,22 +82,36 @@ drawingContext.shadowColor = color(9, 25, 145); // navy colour
     let hand = hands[i];
 
     // This is how to load in the x and y of a point on the hand.
-    let indexFingerTipX = hand.index_finger_tip.x;
-    let indexFingerTipY = hand.index_finger_tip.y;
+    //   let faceCenterX = face.faceOval.centerX;
+    // let faceCenterY = face.faceOval.centerY;
+    // let faceWidth = face.faceOval.width;
+    // let faceHeight = face.faceOval.height;
+ let indexFingerTipX = hand.index_finger_tip.x;
+ let indexFingerTipY = hand.index_finger_tip.y;
+  // let SharkWidth = faceWidth * 1.5; /// how big the shark is 
+  // let  SharkHeight = faceHeight * 1.5;
+  //  let  SharkX = faceCenterX - SharkWidth / 2; //where the shark is and center it on face 
+  //  let  SharkY = faceCenterY - SharkHeight / 2;
 
     /*
     Start drawing on the hands here
     */
 
-drawingContext.shadowBlur = 20; // minimal glow 
-drawingContext.shadowColor = color(9, 25, 145); // navy colour 
+    // ellipse(faceCenterX, faceCenterY, 400)
+
 let whatGesture = detectHandGesture(hand)
+let FishTouchShark = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40 , SharkMouthX, SharkMouthY + 10, 100);
+let JellyTouchShark = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40 , faceCenterX, faceCenterY, 350);
+
+// drawingContext.shadowBlur = 20; // minimal glow 
+// drawingContext.shadowColor = color(9, 25, 145); // navy colour 
 
  if (hand.handedness === "Right") {
  let topLeftX = indexFingerTipX - 200 / 2; // fish on top of finger centered 
  let topLeftY = indexFingerTipY - 240 / 2;
   image(Fish, topLeftX, topLeftY, 200, 240)
   }
+
 
 if (whatGesture === "Pointing" && hand.handedness === "Left") {
  let topLeftX = indexFingerTipX - 200 / 2; // jellyfish on top of finger centered 
@@ -112,7 +125,7 @@ if (whatGesture === "Pointing" && hand.handedness === "Left") {
  image(Stingray, topLeftX, topLeftY, 200, 240) /// add stingray 
  }
 
- if (whatGesture == "Peace" && hand.handedness === "Right") {
+ if (whatGesture === "Peace" && hand.handedness === "Right") {
    
   if (!initialized) {
     for (let i = 0; i < NumBubbles; i++) {
@@ -137,12 +150,34 @@ if (whatGesture === "Pointing" && hand.handedness === "Left") {
   }
    }
 
+   if (FishTouchShark && ((isMouthOpen) == true) ) {
+    let topLeftX = indexFingerTipX - 200 / 2; // fish on top of finger centered 
+    let topLeftY = indexFingerTipY - 240 / 2;
+      image(Fish2, topLeftX, topLeftY, 200, 240)
+    }
+ if (JellyTouchShark) {
+    SharkWidth = faceWidth * 1.5; /// how big the shark is 
+    SharkHeight = faceHeight * 1.5;
+    SharkX = faceCenterX - SharkWidth / 2; //where the shark is and center it on face 
+    SharkY = faceCenterY - SharkHeight / 2;
+      image(Shark3, SharkX, SharkY, SharkWidth, SharkHeight)
+    }
+//-----
   } 
+
 //----- 
 }
   // You can make addtional elements here, but keep the hand drawing inside the for loop. 
+  function areTheseTouching(x1, y1, x2, y2, threshhold) {
 
+  let d = dist(x1, y1, x2, y2)
+  if (d < threshhold) {
+    return true;
 
+  } else {
+    return false;
+  }
+}
 
 function checkIfMouthOpen(face) {
 
@@ -159,18 +194,21 @@ function checkIfMouthOpen(face) {
     isMouthOpen = true;
   }
 
+}
 
+  // This function draw's a dot on all the keypoints. It can be passed a whole face, or part of one. 
+function drawPoints(feature, color = "#00ff00", size = 5) {
+  push()
+  for (let i = 0; i < feature.keypoints.length; i++) {
+    let element = feature.keypoints[i];
+    noStroke();
+    fill(color);
+    circle(element.x, element.y, size);
+  }
+  pop()
+}
 
-  // // This function draw's a dot on all the keypoints. It can be passed a whole face, or part of one. 
-// function drawPoints(feature, color = "#00ff00", size = 5) {
-//   push()
-//   for (let i = 0; i < feature.keypoints.length; i++) {
-//     let element = feature.keypoints[i];
-//     noStroke();
-//     fill(color);
-//     circle(element.x, element.y, size);
-//   }
-//   pop()
 // }
 
-}
+
+  
