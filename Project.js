@@ -7,7 +7,7 @@ function prepareInteraction() {
   Stingray = loadImage('/images/Stingray.png');
   Shark1 = loadImage('/images/Shark1.png');
   Shark2 = loadImage('/images/Shark2.png');
-  Shark3 = loadImage('/images/Shark3.png');
+  Shark3 = loadImage('/images/Shark3V2.png');
   Ocean = loadImage('/images/Background.jpg');
 }
 
@@ -27,10 +27,10 @@ function drawInteraction(faces, hands) {
   for (let i = 0; i < faces.length; i++) {
     let face = faces[i]; // face holds all the keypoints of the face
 
-    faceCenterX = face.faceOval.centerX;
-    faceCenterY = face.faceOval.centerY;
-     faceWidth = face.faceOval.width;
-    faceHeight = face.faceOval.height;
+  faceCenterX = face.faceOval.centerX;
+  faceCenterY = face.faceOval.centerY;
+  faceWidth = face.faceOval.width;
+  faceHeight = face.faceOval.height;
 
   SharkMouthX = face.keypoints[447].x;
   SharkMouthY = face.keypoints[447].y;
@@ -81,37 +81,24 @@ drawingContext.shadowColor = color(9, 25, 145); // navy colour
  for (let i = 0; i < hands.length; i++) {
     let hand = hands[i];
 
-    // This is how to load in the x and y of a point on the hand.
-    //   let faceCenterX = face.faceOval.centerX;
-    // let faceCenterY = face.faceOval.centerY;
-    // let faceWidth = face.faceOval.width;
-    // let faceHeight = face.faceOval.height;
  let indexFingerTipX = hand.index_finger_tip.x;
  let indexFingerTipY = hand.index_finger_tip.y;
-  // let SharkWidth = faceWidth * 1.5; /// how big the shark is 
-  // let  SharkHeight = faceHeight * 1.5;
-  //  let  SharkX = faceCenterX - SharkWidth / 2; //where the shark is and center it on face 
-  //  let  SharkY = faceCenterY - SharkHeight / 2;
 
     /*
     Start drawing on the hands here
     */
-
-    // ellipse(faceCenterX, faceCenterY, 400)
-
 let whatGesture = detectHandGesture(hand)
 let FishTouchShark = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40 , SharkMouthX, SharkMouthY + 10, 100);
-let JellyTouchShark = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40 , faceCenterX, faceCenterY, 350);
+let JellyTouchShark = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40 , faceCenterX, faceCenterY, 200);
 
 // drawingContext.shadowBlur = 20; // minimal glow 
 // drawingContext.shadowColor = color(9, 25, 145); // navy colour 
 
- if (hand.handedness === "Right") {
+ if (hand.handedness === "Right" && (FishTouchShark == false) ) {
  let topLeftX = indexFingerTipX - 200 / 2; // fish on top of finger centered 
  let topLeftY = indexFingerTipY - 240 / 2;
   image(Fish, topLeftX, topLeftY, 200, 240)
   }
-
 
 if (whatGesture === "Pointing" && hand.handedness === "Left") {
  let topLeftX = indexFingerTipX - 200 / 2; // jellyfish on top of finger centered 
@@ -155,7 +142,8 @@ if (whatGesture === "Pointing" && hand.handedness === "Left") {
     let topLeftY = indexFingerTipY - 240 / 2;
       image(Fish2, topLeftX, topLeftY, 200, 240)
     }
- if (JellyTouchShark) {
+
+ if (JellyTouchShark && hand.handedness === "Left") {
     SharkWidth = faceWidth * 1.5; /// how big the shark is 
     SharkHeight = faceHeight * 1.5;
     SharkX = faceCenterX - SharkWidth / 2; //where the shark is and center it on face 
