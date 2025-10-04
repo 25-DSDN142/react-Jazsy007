@@ -91,11 +91,19 @@ drawingContext.shadowColor = color(9, 25, 145); // navy colour
     */
 let whatGesture = detectHandGesture(hand)
 let FishTouchShark = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40 , SharkMouthX, SharkMouthY + 10, 100);
-let FishTouchChest = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40 , SharkMouthX, SharkMouthY + 10, 100);
+let FishTouchChest = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40 , 510, 840, 160);
 let JellyTouchShark = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40 , faceCenterX, faceCenterY, 200);
 
-// drawingContext.shadowBlur = 20; // minimal glow 
-// drawingContext.shadowColor = color(9, 25, 145); // navy colour 
+drawingContext.shadowBlur = 20; // minimal glow 
+drawingContext.shadowColor = color(9, 25, 145); // navy colour 
+
+ if (hand.handedness === "Right") {
+    if (FishTouchChest) {
+      image(Chest2, 300, 600, 400, 460);
+      } else {
+    image(Chest1, 300, 600, 400, 460);
+  }
+  }
 
  if (hand.handedness === "Right" && (FishTouchShark == false) ) {
  let topLeftX = indexFingerTipX - 200 / 2; // fish on top of finger centered 
@@ -146,10 +154,6 @@ if (whatGesture === "Pointing" && hand.handedness === "Left") {
       image(Fish2, topLeftX, topLeftY, 200, 240)
     }
 
-  // if (FishTouchChest) {
-  //     image(Chest1, 300, 700, 200, 240)
-  //   }
-
  if (JellyTouchShark && hand.handedness === "Left") {
     SharkWidth = faceWidth * 1.5; /// how big the shark is 
     SharkHeight = faceHeight * 1.5;
@@ -157,8 +161,6 @@ if (whatGesture === "Pointing" && hand.handedness === "Left") {
     SharkY = faceCenterY - SharkHeight / 2;
       image(Shark3, SharkX, SharkY, SharkWidth, SharkHeight)
     }
-
- image(Chest1, 300, 700, 200, 240)
 
 
 //-----
@@ -195,17 +197,17 @@ function checkIfMouthOpen(face) {
 
 }
 
-  // This function draw's a dot on all the keypoints. It can be passed a whole face, or part of one. 
-function drawPoints(feature, color = "#00ff00", size = 5) {
-  push()
-  for (let i = 0; i < feature.keypoints.length; i++) {
-    let element = feature.keypoints[i];
-    noStroke();
-    fill(color);
-    circle(element.x, element.y, size);
-  }
-  pop()
-}
+//   // This function draw's a dot on all the keypoints. It can be passed a whole face, or part of one. 
+// function drawPoints(feature, color = "#00ff00", size = 5) {
+//   push()
+//   for (let i = 0; i < feature.keypoints.length; i++) {
+//     let element = feature.keypoints[i];
+//     noStroke();
+//     fill(color);
+//     circle(element.x, element.y, size);
+//   }
+//   pop()
+// }
 
 // }
 
