@@ -8,6 +8,8 @@ function prepareInteraction() {
   Shark1 = loadImage('/images/Shark1.png');
   Shark2 = loadImage('/images/Shark2.png');
   Shark3 = loadImage('/images/Shark3V2.png');
+  Chest1 = loadImage('/images/Chest1.png');
+  Chest2 = loadImage('/images/Chest2.png');
   Ocean = loadImage('/images/Background.jpg');
 }
 
@@ -89,6 +91,7 @@ drawingContext.shadowColor = color(9, 25, 145); // navy colour
     */
 let whatGesture = detectHandGesture(hand)
 let FishTouchShark = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40 , SharkMouthX, SharkMouthY + 10, 100);
+let FishTouchChest = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40 , SharkMouthX, SharkMouthY + 10, 100);
 let JellyTouchShark = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40 , faceCenterX, faceCenterY, 200);
 
 // drawingContext.shadowBlur = 20; // minimal glow 
@@ -137,11 +140,15 @@ if (whatGesture === "Pointing" && hand.handedness === "Left") {
   }
    }
 
-   if (FishTouchShark && ((isMouthOpen) == true) ) {
+ if (FishTouchShark && ((isMouthOpen) == true) ) {
     let topLeftX = indexFingerTipX - 200 / 2; // fish on top of finger centered 
     let topLeftY = indexFingerTipY - 240 / 2;
       image(Fish2, topLeftX, topLeftY, 200, 240)
     }
+
+  // if (FishTouchChest) {
+  //     image(Chest1, 300, 700, 200, 240)
+  //   }
 
  if (JellyTouchShark && hand.handedness === "Left") {
     SharkWidth = faceWidth * 1.5; /// how big the shark is 
@@ -150,6 +157,10 @@ if (whatGesture === "Pointing" && hand.handedness === "Left") {
     SharkY = faceCenterY - SharkHeight / 2;
       image(Shark3, SharkX, SharkY, SharkWidth, SharkHeight)
     }
+
+ image(Chest1, 300, 700, 200, 240)
+
+
 //-----
   } 
 
