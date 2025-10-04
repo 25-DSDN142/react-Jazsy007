@@ -37,7 +37,6 @@ function drawInteraction(faces, hands) {
   SharkMouthX = face.keypoints[447].x;
   SharkMouthY = face.keypoints[447].y;
 
-
     /*
     Start drawing on the face here
     */
@@ -53,7 +52,6 @@ drawingContext.shadowColor = color(9, 25, 145); // navy colour
     SharkX = faceCenterX - SharkWidth / 2; //where the shark is and center it on face 
     SharkY = faceCenterY - SharkHeight / 2;
 
-    // draw Shark
     image(Shark1, SharkX, SharkY, SharkWidth, SharkHeight);
  }
 
@@ -65,7 +63,6 @@ drawingContext.shadowColor = color(9, 25, 145); // navy colour
     SharkX = faceCenterX - SharkWidth / 2; //where the shark is and center it on face 
     SharkY = faceCenterY - SharkHeight / 2;
 
-    // draw Shark
     image(Shark2, SharkX, SharkY, SharkWidth, SharkHeight);
  }
   }
