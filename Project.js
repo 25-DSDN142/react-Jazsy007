@@ -5,6 +5,7 @@ function prepareInteraction() {
   Fish2 = loadImage('/images/Fish2.png');
   Jellyfish = loadImage('/images/Jellyfish.png');
   Stingray = loadImage('/images/Stingray.png');
+  Seahorse = loadImage('/images/Seahorse1.png');
   Shark1 = loadImage('/images/Shark1.png');
   Shark2 = loadImage('/images/Shark2.png');
   Shark3 = loadImage('/images/Shark3V2.png');
@@ -108,7 +109,13 @@ drawingContext.shadowColor = color(9, 25, 145); // navy colour
   image(Fish, topLeftX, topLeftY, 200, 240)
   }
 
-if (whatGesture === "Pointing" && hand.handedness === "Left") {
+ if (whatGesture === "Pointing" && hand.handedness === "Left") {
+ let topLeftX = indexFingerTipX - 200 / 2; // seahorse on top of finger centered 
+ let topLeftY = indexFingerTipY - 240 / 2;
+ image(Seahorse, topLeftX, topLeftY, 200, 300) /// add seahorse 
+ }
+
+if (whatGesture === "Peace" && hand.handedness === "Left") {
  let topLeftX = indexFingerTipX - 200 / 2; // jellyfish on top of finger centered 
  let topLeftY = indexFingerTipY - 240 / 2;
   image(Jellyfish, topLeftX, topLeftY, 200, 240)
@@ -145,13 +152,13 @@ if (whatGesture === "Pointing" && hand.handedness === "Left") {
   }
    }
 
- if (FishTouchShark && ((isMouthOpen) == true) ) {
+ if (FishTouchShark && ((isMouthOpen) == true) && hand.handedness === "Right") {
     let topLeftX = indexFingerTipX - 200 / 2; // fish on top of finger centered 
     let topLeftY = indexFingerTipY - 240 / 2;
       image(Fish2, topLeftX, topLeftY, 200, 240)
     }
 
- if (JellyTouchShark && hand.handedness === "Left") {
+ if (JellyTouchShark && hand.handedness === "Left" && (whatGesture === "Thumbs Up" || whatGesture === "Peace") ) {
     SharkWidth = faceWidth * 1.5; /// how big the shark is 
     SharkHeight = faceHeight * 1.5;
     SharkX = faceCenterX - SharkWidth / 2; //where the shark is and center it on face 
