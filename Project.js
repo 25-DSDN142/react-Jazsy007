@@ -11,12 +11,18 @@ function prepareInteraction() {
   Shark3 = loadImage('/images/Shark3V2.png');
   Chest1 = loadImage('/images/Chest1.png');
   Chest2 = loadImage('/images/Chest2.png');
+  Pearl1 = loadImage('/images/Pearl1.png');
+  Pearl2 = loadImage('/images/Pearl2.png');
   Ocean = loadImage('/images/Background.jpg');
 }
 
 let x = [], y = [], speed = [], size = [];
 let NumBubbles = 100;
-let initialized = false;
+let NumBubbles2 = 50;
+let NumBubbles3 = 50;
+let initialized1 = false;
+let initialized2 = false;
+let initialized3 = false;
 
 function drawInteraction(faces, hands) {
 
@@ -90,16 +96,72 @@ drawingContext.shadowColor = color(9, 25, 145); // navy colour
 let whatGesture = detectHandGesture(hand)
 let FishTouchShark = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40 , SharkMouthX, SharkMouthY + 10, 100);
 let FishTouchChest = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40 , 510, 840, 160);
+let SeahorseTouchShell = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40 , 1140, 420, 130);
 let JellyTouchShark = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40 , faceCenterX, faceCenterY, 200);
 
 drawingContext.shadowBlur = 20; // minimal glow 
 drawingContext.shadowColor = color(9, 25, 145); // navy colour 
 
+
  if (hand.handedness === "Right") {
     if (FishTouchChest) {
       image(Chest2, 300, 600, 400, 460);
-      } else {
+
+  if (!initialized1) {
+    for (let i = 0; i < NumBubbles2; i++) {
+      x[i] = random(450, 550);                
+      y[i] = random(800, 820);
+      speed[i] = random(0.3, 1.2);// upward speed
+      size[i] = random(5, 10);  // bubble size
+    }
+    initialized1 = true;
+  }
+
+  for (let i = 0; i < NumBubbles2; i++) {
+    y[i] -= speed[i]; // move up
+
+ drawingContext.shadowBlur = 16;
+ drawingContext.shadowColor = color(180, 220, 255, 150); // light blue 
+
+  noStroke();
+    fill(200, 230, 255, 150); // light blue 
+    ellipse(x[i], y[i], size[i]);
+  }
+
+  } else {
     image(Chest1, 300, 600, 400, 460);
+    initialized1 = false;
+     }
+
+   } 
+
+   if (hand.handedness === "Left" && whatGesture === "Pointing") {
+    if (SeahorseTouchShell) {
+      image(Pearl2, 990, 180, 300, 360);
+      
+       if (!initialized2) {
+    for (let i = 0; i < NumBubbles3; i++) {
+      x[i] = random(1050, 1220);                
+      y[i] = random(395, 425);
+      speed[i] = random(0.3, 1.2);// upward speed
+      size[i] = random(5, 10);  // bubble size
+    }
+    initialized2 = true;
+  }
+
+  for (let i = 0; i < NumBubbles3; i++) {
+    y[i] -= speed[i]; // move up
+
+ drawingContext.shadowBlur = 16;
+ drawingContext.shadowColor = color(180, 220, 255, 150); // light blue 
+
+  noStroke();
+    fill(200, 230, 255, 150); // light blue 
+    ellipse(x[i], y[i], size[i]);
+  }
+      } else {
+    image(Pearl1, 990, 180, 300, 360);
+     initialized2 = false;
   }
   }
 
@@ -129,14 +191,14 @@ if (whatGesture === "Peace" && hand.handedness === "Left") {
 
  if (whatGesture === "Peace" && hand.handedness === "Right") {
    
-  if (!initialized) {
+  if (!initialized3) {
     for (let i = 0; i < NumBubbles; i++) {
       x[i] = random(width);                
       y[i] = random(height, height + 100);
       speed[i] = random(0.3, 1.2);// upward speed
       size[i] = random(5, 19);  // bubble size
     }
-    initialized = true;
+    initialized3 = true;
   }
 
   for (let i = 0; i < NumBubbles; i++) {
@@ -149,8 +211,14 @@ if (whatGesture === "Peace" && hand.handedness === "Left") {
     fill(200, 230, 255, 150); // light blue 
     ellipse(x[i], y[i], size[i]);
 
-  }
+  } 
+  
+  
    }
+   else if(hand.handedness === "Right" && whatGesture != "Peace") {
+    initialized3 = false;
+  }
+
 
  if (FishTouchShark && ((isMouthOpen) == true) && hand.handedness === "Right") {
     let topLeftX = indexFingerTipX - 200 / 2; // fish on top of finger centered 
@@ -173,7 +241,7 @@ if (whatGesture === "Peace" && hand.handedness === "Left") {
 //----- 
 }
   // You can make addtional elements here, but keep the hand drawing inside the for loop. 
-  function areTheseTouching(x1, y1, x2, y2, threshhold) {
+function areTheseTouching(x1, y1, x2, y2, threshhold) {
 
   let d = dist(x1, y1, x2, y2)
   if (d < threshhold) {
@@ -214,6 +282,3 @@ function checkIfMouthOpen(face) {
 // }
 
 // }
-
-
-  
