@@ -5,10 +5,10 @@ function prepareInteraction() {
   Fish2 = loadImage('/images/Fish2.png');
   Jellyfish = loadImage('/images/Jellyfish.png');
   Stingray = loadImage('/images/Stingray.png');
-  Seahorse = loadImage('/images/Seahorse1.png');
+  Seahorse = loadImage('/images/Seahorse.png');
   Shark1 = loadImage('/images/Shark1.png');
   Shark2 = loadImage('/images/Shark2.png');
-  Shark3 = loadImage('/images/Shark3V2.png');
+  Shark3 = loadImage('/images/Shark3.png');
   Chest1 = loadImage('/images/Chest1.png');
   Chest2 = loadImage('/images/Chest2.png');
   Pearl1 = loadImage('/images/Pearl1.png');
