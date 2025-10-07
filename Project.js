@@ -44,9 +44,7 @@ function drawInteraction(faces, hands) {
   SharkMouthX = face.keypoints[447].x;
   SharkMouthY = face.keypoints[447].y;
 
-    /*
-    Start drawing on the face here
-    */
+ /*  Start drawing on the face here */
 
 drawingContext.shadowBlur = 20; // minimal glow 
 drawingContext.shadowColor = color(9, 25, 145); // navy colour 
@@ -73,9 +71,7 @@ drawingContext.shadowColor = color(9, 25, 145); // navy colour
     image(Shark2, SharkX, SharkY, SharkWidth, SharkHeight);
  }
   }
-    /*
-    Stop drawing on the face here
-    */
+    /*  Stop drawing on the face here  */
 
   // You can make addtional elements here, but keep the face drawing inside the for loop. 
 
@@ -90,9 +86,8 @@ drawingContext.shadowColor = color(9, 25, 145); // navy colour
  let indexFingerTipX = hand.index_finger_tip.x;
  let indexFingerTipY = hand.index_finger_tip.y;
 
-    /*
-    Start drawing on the hands here
-    */
+/* Start drawing on the hands here  */
+   
 let whatGesture = detectHandGesture(hand)
 let FishTouchShark = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40 , SharkMouthX, SharkMouthY + 10, 100);
 let FishTouchChest = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40 , 510, 840, 160);
@@ -165,6 +160,38 @@ drawingContext.shadowColor = color(9, 25, 145); // navy colour
   }
   }
 
+ if (hand.handedness === "Right") {
+    if (FishTouchChest) {
+      image(Chest2, 300, 600, 400, 460);
+
+  if (!initialized1) {
+    for (let i = 0; i < NumBubbles2; i++) {
+      x[i] = random(450, 550);                
+      y[i] = random(800, 820);
+      speed[i] = random(0.3, 1.2);// upward speed
+      size[i] = random(5, 10);  // bubble size
+    }
+    initialized1 = true;
+  }
+
+  for (let i = 0; i < NumBubbles2; i++) {
+    y[i] -= speed[i]; // move up
+
+ drawingContext.shadowBlur = 16;
+ drawingContext.shadowColor = color(180, 220, 255, 150); // light blue 
+
+  noStroke();
+    fill(200, 230, 255, 150); // light blue 
+    ellipse(x[i], y[i], size[i]);
+  }
+
+  } else {
+    image(Chest1, 300, 600, 400, 460);
+    initialized1 = false;
+     }
+
+   } 
+
  if (hand.handedness === "Right" && (FishTouchShark == false) ) {
  let topLeftX = indexFingerTipX - 200 / 2; // fish on top of finger centered 
  let topLeftY = indexFingerTipY - 240 / 2;
@@ -219,7 +246,6 @@ if (whatGesture === "Peace" && hand.handedness === "Left") {
     initialized3 = false;
   }
 
-
  if (FishTouchShark && ((isMouthOpen) == true) && hand.handedness === "Right") {
     let topLeftX = indexFingerTipX - 200 / 2; // fish on top of finger centered 
     let topLeftY = indexFingerTipY - 240 / 2;
@@ -233,7 +259,6 @@ if (whatGesture === "Peace" && hand.handedness === "Left") {
     SharkY = faceCenterY - SharkHeight / 2;
       image(Shark3, SharkX, SharkY, SharkWidth, SharkHeight)
     }
-
 
 //-----
   } 
@@ -269,16 +294,3 @@ function checkIfMouthOpen(face) {
 
 }
 
-//   // This function draw's a dot on all the keypoints. It can be passed a whole face, or part of one. 
-// function drawPoints(feature, color = "#00ff00", size = 5) {
-//   push()
-//   for (let i = 0; i < feature.keypoints.length; i++) {
-//     let element = feature.keypoints[i];
-//     noStroke();
-//     fill(color);
-//     circle(element.x, element.y, size);
-//   }
-//   pop()
-// }
-
-// }
