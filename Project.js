@@ -57,7 +57,7 @@ drawingContext.shadowColor = color(9, 25, 145); // navy colour
     SharkX = faceCenterX - SharkWidth / 2; //where the shark is and center it on face 
     SharkY = faceCenterY - SharkHeight / 2;
 
-    image(Shark1, SharkX, SharkY, SharkWidth, SharkHeight);
+    image(Shark1, SharkX, SharkY, SharkWidth, SharkHeight); // add shark 
  }
 
     checkIfMouthOpen(face);
@@ -68,7 +68,7 @@ drawingContext.shadowColor = color(9, 25, 145); // navy colour
     SharkX = faceCenterX - SharkWidth / 2; //where the shark is and center it on face 
     SharkY = faceCenterY - SharkHeight / 2;
 
-    image(Shark2, SharkX, SharkY, SharkWidth, SharkHeight);
+    image(Shark2, SharkX, SharkY, SharkWidth, SharkHeight); // add shark with teeth 
  }
   }
     /*  Stop drawing on the face here  */
@@ -88,7 +88,7 @@ drawingContext.shadowColor = color(9, 25, 145); // navy colour
 
 /* Start drawing on the hands here  */
    
-let whatGesture = detectHandGesture(hand)
+let whatGesture = detectHandGesture(hand);
 let FishTouchShark = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40 , SharkMouthX, SharkMouthY + 10, 100);
 let FishTouchChest = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40 , 510, 840, 160);
 let SeahorseTouchShell = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40 , 1140, 420, 130);
@@ -125,7 +125,7 @@ drawingContext.shadowColor = color(9, 25, 145); // navy colour
 
   } else {
     image(Chest1, 300, 600, 400, 460);
-    initialized1 = false;
+    initialized1 = false; // sets back to false so bubbles can start again 
      }
 
    } 
@@ -156,64 +156,32 @@ drawingContext.shadowColor = color(9, 25, 145); // navy colour
   }
       } else {
     image(Pearl1, 990, 180, 300, 360);
-     initialized2 = false;
+     initialized2 = false; // sets back to false so bubbles can start again 
   }
   }
 
- if (hand.handedness === "Right") {
-    if (FishTouchChest) {
-      image(Chest2, 300, 600, 400, 460);
-
-  if (!initialized1) {
-    for (let i = 0; i < NumBubbles2; i++) {
-      x[i] = random(450, 550);                
-      y[i] = random(800, 820);
-      speed[i] = random(0.3, 1.2);// upward speed
-      size[i] = random(5, 10);  // bubble size
-    }
-    initialized1 = true;
-  }
-
-  for (let i = 0; i < NumBubbles2; i++) {
-    y[i] -= speed[i]; // move up
-
- drawingContext.shadowBlur = 16;
- drawingContext.shadowColor = color(180, 220, 255, 150); // light blue 
-
-  noStroke();
-    fill(200, 230, 255, 150); // light blue 
-    ellipse(x[i], y[i], size[i]);
-  }
-
-  } else {
-    image(Chest1, 300, 600, 400, 460);
-    initialized1 = false;
-     }
-
-   } 
-
- if (hand.handedness === "Right" && (FishTouchShark == false) ) {
+ if (hand.handedness === "Right" && ((FishTouchShark == false) || ((isMouthOpen) == false)) ) {
  let topLeftX = indexFingerTipX - 200 / 2; // fish on top of finger centered 
  let topLeftY = indexFingerTipY - 240 / 2;
-  image(Fish, topLeftX, topLeftY, 200, 240)
+  image(Fish, topLeftX, topLeftY, 200, 240); // add fish 
   }
 
  if (whatGesture === "Pointing" && hand.handedness === "Left") {
  let topLeftX = indexFingerTipX - 200 / 2; // seahorse on top of finger centered 
  let topLeftY = indexFingerTipY - 240 / 2;
- image(Seahorse, topLeftX, topLeftY, 200, 300) /// add seahorse 
+ image(Seahorse, topLeftX, topLeftY, 200, 300); // add seahorse 
  }
 
 if (whatGesture === "Peace" && hand.handedness === "Left") {
  let topLeftX = indexFingerTipX - 200 / 2; // jellyfish on top of finger centered 
  let topLeftY = indexFingerTipY - 240 / 2;
-  image(Jellyfish, topLeftX, topLeftY, 200, 240)
+  image(Jellyfish, topLeftX, topLeftY, 200, 240); // add jellyfish 
   }
    
  if (whatGesture === "Thumbs Up" && hand.handedness === "Left") {
  let topLeftX = indexFingerTipX - 200 / 2; // stingray on top of finger centered 
  let topLeftY = indexFingerTipY - 240 / 2;
- image(Stingray, topLeftX, topLeftY, 200, 240) /// add stingray 
+ image(Stingray, topLeftX, topLeftY, 200, 240); // add stingray 
  }
 
  if (whatGesture === "Peace" && hand.handedness === "Right") {
@@ -243,13 +211,13 @@ if (whatGesture === "Peace" && hand.handedness === "Left") {
   
    }
    else if(hand.handedness === "Right" && whatGesture != "Peace") {
-    initialized3 = false;
+    initialized3 = false; // sets back to false so bubbles can start again 
   }
 
  if (FishTouchShark && ((isMouthOpen) == true) && hand.handedness === "Right") {
     let topLeftX = indexFingerTipX - 200 / 2; // fish on top of finger centered 
     let topLeftY = indexFingerTipY - 240 / 2;
-      image(Fish2, topLeftX, topLeftY, 200, 240)
+      image(Fish2, topLeftX, topLeftY, 200, 240); // add dead fish 
     }
 
  if (JellyTouchShark && hand.handedness === "Left" && (whatGesture === "Thumbs Up" || whatGesture === "Peace") ) {
@@ -257,7 +225,7 @@ if (whatGesture === "Peace" && hand.handedness === "Left") {
     SharkHeight = faceHeight * 1.5;
     SharkX = faceCenterX - SharkWidth / 2; //where the shark is and center it on face 
     SharkY = faceCenterY - SharkHeight / 2;
-      image(Shark3, SharkX, SharkY, SharkWidth, SharkHeight)
+      image(Shark3, SharkX, SharkY, SharkWidth, SharkHeight); // electorucued shark 
     }
 
 //-----
@@ -293,4 +261,3 @@ function checkIfMouthOpen(face) {
   }
 
 }
-
