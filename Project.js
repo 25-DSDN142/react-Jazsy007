@@ -224,7 +224,7 @@ if (whatGesture === "Peace" && hand.handedness === "Right") {
     SharkHeight = faceHeight * 1.5;
     SharkX = faceCenterX - SharkWidth / 2; //where the shark is and center it on face 
     SharkY = faceCenterY - SharkHeight / 2;
-      image(Shark3, SharkX, SharkY, SharkWidth, SharkHeight); // electorucued shark 
+      image(Shark3, SharkX, SharkY, SharkWidth, SharkHeight); // electrocuted shark 
     }
 
 //-----
