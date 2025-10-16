@@ -46,7 +46,7 @@ function drawInteraction(faces, hands) {
 
  /*  Start drawing on the face here */
 
-drawingContext.shadowBlur = 20; // minimal glow 
+drawingContext.shadowBlur = 20; // glow 
 drawingContext.shadowColor = color(9, 25, 145); // navy colour 
 
     checkIfMouthOpen(face);
@@ -94,7 +94,7 @@ let FishTouchChest = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40
 let SeahorseTouchShell = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40 , 1140, 420, 130);
 let JellyTouchShark = areTheseTouching(indexFingerTipX - 10 , indexFingerTipY -40 , faceCenterX, faceCenterY, 200);
 
-drawingContext.shadowBlur = 20; // minimal glow 
+drawingContext.shadowBlur = 20; // glow 
 drawingContext.shadowColor = color(9, 25, 145); // navy colour 
 
 
@@ -115,7 +115,7 @@ drawingContext.shadowColor = color(9, 25, 145); // navy colour
   for (let i = 0; i < NumBubbles2; i++) {
     y[i] -= speed[i]; // move up
 
- drawingContext.shadowBlur = 16;
+ drawingContext.shadowBlur = 16; // minimal glow
  drawingContext.shadowColor = color(180, 220, 255, 150); // light blue 
 
   noStroke();
@@ -130,7 +130,7 @@ drawingContext.shadowColor = color(9, 25, 145); // navy colour
 
    } 
 
-   if (hand.handedness === "Left" && whatGesture === "Pointing") {
+ if (hand.handedness === "Left" && whatGesture === "Pointing") {
     if (SeahorseTouchShell) {
       image(Pearl2, 990, 180, 300, 360);
       
@@ -147,7 +147,7 @@ drawingContext.shadowColor = color(9, 25, 145); // navy colour
   for (let i = 0; i < NumBubbles3; i++) {
     y[i] -= speed[i]; // move up
 
- drawingContext.shadowBlur = 16;
+ drawingContext.shadowBlur = 16; // minimal glow
  drawingContext.shadowColor = color(180, 220, 255, 150); // light blue 
 
   noStroke();
@@ -160,13 +160,13 @@ drawingContext.shadowColor = color(9, 25, 145); // navy colour
   }
   }
 
- if (hand.handedness === "Right" && ((FishTouchShark == false) || ((isMouthOpen) == false)) ) {
+if (hand.handedness === "Right" && ((FishTouchShark === false) || ((isMouthOpen) === false)) ) {
  let topLeftX = indexFingerTipX - 200 / 2; // fish on top of finger centered 
  let topLeftY = indexFingerTipY - 240 / 2;
-  image(Fish, topLeftX, topLeftY, 200, 240); // add fish 
+ image(Fish, topLeftX, topLeftY, 200, 240); // add fish 
   }
 
- if (whatGesture === "Pointing" && hand.handedness === "Left") {
+if (whatGesture === "Pointing" && hand.handedness === "Left") {
  let topLeftX = indexFingerTipX - 200 / 2; // seahorse on top of finger centered 
  let topLeftY = indexFingerTipY - 240 / 2;
  image(Seahorse, topLeftX, topLeftY, 200, 300); // add seahorse 
@@ -175,16 +175,16 @@ drawingContext.shadowColor = color(9, 25, 145); // navy colour
 if (whatGesture === "Peace" && hand.handedness === "Left") {
  let topLeftX = indexFingerTipX - 200 / 2; // jellyfish on top of finger centered 
  let topLeftY = indexFingerTipY - 240 / 2;
-  image(Jellyfish, topLeftX, topLeftY, 200, 240); // add jellyfish 
+ image(Jellyfish, topLeftX, topLeftY, 200, 240); // add jellyfish 
   }
    
- if (whatGesture === "Thumbs Up" && hand.handedness === "Left") {
+if (whatGesture === "Thumbs Up" && hand.handedness === "Left") {
  let topLeftX = indexFingerTipX - 200 / 2; // stingray on top of finger centered 
  let topLeftY = indexFingerTipY - 240 / 2;
  image(Stingray, topLeftX, topLeftY, 200, 240); // add stingray 
  }
 
- if (whatGesture === "Peace" && hand.handedness === "Right") {
+if (whatGesture === "Peace" && hand.handedness === "Right") {
    
   if (!initialized3) {
     for (let i = 0; i < NumBubbles; i++) {
@@ -199,7 +199,7 @@ if (whatGesture === "Peace" && hand.handedness === "Left") {
   for (let i = 0; i < NumBubbles; i++) {
     y[i] -= speed[i]; // move up
 
- drawingContext.shadowBlur = 16;
+ drawingContext.shadowBlur = 16; // minimal glow
  drawingContext.shadowColor = color(180, 220, 255, 150); // light blue 
 
   noStroke();
@@ -208,13 +208,12 @@ if (whatGesture === "Peace" && hand.handedness === "Left") {
 
   } 
   
-  
    }
    else if(hand.handedness === "Right" && whatGesture != "Peace") {
     initialized3 = false; // sets back to false so bubbles can start again 
   }
 
- if (FishTouchShark && ((isMouthOpen) == true) && hand.handedness === "Right") {
+ if (FishTouchShark && ((isMouthOpen) === true) && hand.handedness === "Right") {
     let topLeftX = indexFingerTipX - 200 / 2; // fish on top of finger centered 
     let topLeftY = indexFingerTipY - 240 / 2;
       image(Fish2, topLeftX, topLeftY, 200, 240); // add dead fish 
